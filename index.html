@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Djangogo33 — Développeur web français, créateur de sites et d'extensions Chrome. Projets open source.">
+  <meta name="author" content="Djangogo33">
+  <meta name="theme-color" content="#07070d">
+  <title>Djangogo33 — Développeur</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+
+  <!-- CSS (ordre important) -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <link rel="stylesheet" href="css/sections.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+
+<!-- Blobs lumineux de fond -->
+<div class="blob blob-1" aria-hidden="true"></div>
+<div class="blob blob-2" aria-hidden="true"></div>
+<div class="blob blob-3" aria-hidden="true"></div>
+
+<!-- ══════════════════════════════════════════
+     NAVIGATION
+══════════════════════════════════════════ -->
+<nav role="navigation" aria-label="Navigation principale">
+  <span class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">Djangogo33</span>
+
+  <ul class="nav-links" role="list">
+    <li><a data-section="about"    onclick="navTo('about')">À propos</a></li>
+    <li><a data-section="projects" onclick="navTo('projects')">Projets</a></li>
+    <li><a data-section="parcours" onclick="navTo('parcours')">Parcours</a></li>
+    <li><a data-section="blog"     onclick="navTo('blog')">Blog</a></li>
+    <li><a data-section="contact"  onclick="navTo('contact')">Contact</a></li>
+  </ul>
+
+  <button class="nav-cta" onclick="go('https://github.com/Djangogo33')">GitHub ↗</button>
+
+  <button class="nav-burger" id="nav-burger" aria-label="Ouvrir le menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Menu mobile -->
+<div class="nav-mobile" id="nav-mobile" aria-hidden="true">
+  <a onclick="navTo('about')">À propos</a>
+  <a onclick="navTo('projects')">Projets</a>
+  <a onclick="navTo('parcours')">Parcours</a>
+  <a onclick="navTo('blog')">Blog</a>
+  <a onclick="navTo('contact')">Contact</a>
+  <a onclick="go('https://github.com/Djangogo33')">GitHub ↗</a>
+</div>
+
+<!-- ══════════════════════════════════════════
+     HERO
+══════════════════════════════════════════ -->
+<section id="hero" aria-label="Accueil">
+
+  <div class="hero-eyebrow">
+    <span class="eyebrow-dot" aria-hidden="true"></span>
+    Développeur français — disponible pour collaborer
+  </div>
+
+  <h1 class="hero-title">
+    DJANGO<br>
+    <span class="gradient-text">GO</span><span class="text-teal">33</span>
+  </h1>
+
+  <p class="hero-tagline">
+    Je crée des <strong>sites web</strong> et des <strong>extensions Chrome</strong>.<br>
+    Open source · Autodidacte · Basé en <strong>France</strong>.
+  </p>
+
+  <div class="hero-actions">
+    <button class="btn btn-primary" onclick="navTo('projects')">Voir mes projets →</button>
+    <button class="btn btn-ghost"   onclick="go('https://github.com/Djangogo33')">GitHub ↗</button>
+    <button class="btn btn-teal"    onclick="go('https://discord.com/invite/7F8jX2Se')">Discord</button>
+  </div>
+
+  <!-- Terminal décoratif — rempli par main.js -->
+  <div class="hero-terminal" aria-hidden="true">
+    <div class="terminal-window">
+      <div class="terminal-bar">
+        <span class="td td-r"></span>
+        <span class="td td-y"></span>
+        <span class="td td-g"></span>
+        <span class="terminal-title">~/djangogo33 — bash</span>
+      </div>
+      <div class="terminal-body" id="terminal-body"></div>
+    </div>
+  </div>
+
+  <div class="hero-scroll" aria-hidden="true">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════
+     À PROPOS
+══════════════════════════════════════════ -->
+<section id="about" aria-label="À propos">
+  <div class="wrap section-pad">
+
+    <p class="section-label">À propos</p>
+
+    <div class="about-grid">
+
+      <!-- Colonne gauche -->
+      <div class="about-text">
+
+        <!-- Avatar : photo du renard Minecraft -->
+        <div class="about-avatar" aria-label="Avatar Djangogo33">
+          <img src="assets/avatar.png" alt="Avatar Djangogo33 — renard Minecraft">
+        </div>
+
+        <h2>Dev curieux,<br>toujours en build</h2>
+
+        <p>
+          Je m'appelle <strong>Djangogo33</strong> — développeur autodidacte basé en
+          <strong>France</strong>. Je construis des projets open source, souvent en
+          collaboration avec <strong>@Djangogo995</strong>.
+        </p>
+        <p>
+          Mon moteur : créer des outils <strong>utiles</strong>, <strong>gratuits</strong>
+          et <strong>accessibles</strong>. Du front-end pur (HTML/CSS/JS) jusqu'aux
+          extensions Chrome, j'explore, j'apprends, je publie.
+        </p>
+
+        <div class="about-info-chips">
+          <span class="info-chip">🇫🇷 <span>France</span></span>
+          <span class="info-chip">🤝 <span>Collab @Djangogo995</span></span>
+          <span class="info-chip">⏱️ <span>Dev depuis ~2 ans</span></span>
+          <span class="info-chip">📦 <span>Open source</span></span>
+        </div>
+
+        <div class="about-links">
+          <button class="btn btn-ghost btn-sm" onclick="go('https://github.com/Djangogo33')">GitHub ↗</button>
+          <button class="btn btn-ghost btn-sm" onclick="go('https://discord.com/invite/7F8jX2Se')">Discord ↗</button>
+          <button class="btn btn-ghost btn-sm" onclick="go('https://djangogo33.github.io/optitools')">TutoFacile ↗</button>
+          <button class="btn btn-ghost btn-sm" onclick="go('https://whatsapp.com/channel/0029VbCJCg06GcG7aLZPGu1f')">WhatsApp ↗</button>
+          <!-- Décommente quand l'extension est publiée sur le Chrome Web Store :
+          <button class="btn btn-ghost btn-sm" onclick="go('[CHROME_STORE_URL]')">AITools sur Chrome ↗</button>
+          -->
+        </div>
+      </div>
+
+      <!-- Colonne droite : compétences -->
+      <div class="skills-block">
+        <h3>Stack & compétences</h3>
+
+        <div class="skill-item anim-up">
+          <div class="skill-meta"><span>HTML / CSS</span><span>90%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:90%;--d:0.10s"></div></div>
+        </div>
+        <div class="skill-item anim-up">
+          <div class="skill-meta"><span>JavaScript</span><span>80%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:80%;--d:0.18s"></div></div>
+        </div>
+        <div class="skill-item anim-up">
+          <div class="skill-meta"><span>Chrome Extensions (MV3)</span><span>78%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:78%;--d:0.26s"></div></div>
+        </div>
+        <div class="skill-item anim-up">
+          <div class="skill-meta"><span>Python</span><span>65%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:65%;--d:0.34s"></div></div>
+        </div>
+        <div class="skill-item anim-up">
+          <div class="skill-meta"><span>Déploiement (Netlify / GH Pages)</span><span>72%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:72%;--d:0.42s"></div></div>
+        </div>
+      </div>
+
+    </div><!-- /about-grid -->
+
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-box anim-up">
+        <span class="stat-num" data-count="3">3</span>
+        <span class="stat-label">Repos publics</span>
+      </div>
+      <div class="stat-box anim-up">
+        <span class="stat-num">v4</span>
+        <span class="stat-label">AITools Pro</span>
+      </div>
+      <div class="stat-box anim-up">
+        <span class="stat-num" data-count="50" data-suffix="+">50+</span>
+        <span class="stat-label">Tutoriels publiés</span>
+      </div>
+      <div class="stat-box anim-up">
+        <span class="stat-num">∞</span>
+        <span class="stat-label">Envie de build</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Tech Stack -->
+<div class="wrap" style="padding-bottom:5rem;position:relative;z-index:1;">
+  <p class="section-label">Technologies</p>
+  <div class="stack-grid">
+    <div class="stack-chip anim-up">🌐 HTML5</div>
+    <div class="stack-chip anim-up">🎨 CSS3</div>
+    <div class="stack-chip anim-up">⚡ JavaScript</div>
+    <div class="stack-chip anim-up">🐍 Python</div>
+    <div class="stack-chip anim-up">🔧 Chrome Ext. MV3</div>
+    <div class="stack-chip anim-up">🚀 Netlify</div>
+    <div class="stack-chip anim-up">🐙 GitHub Pages</div>
+    <div class="stack-chip anim-up">💾 localStorage API</div>
+    <div class="stack-chip anim-up">📦 Service Workers</div>
+    <div class="stack-chip anim-up">🌙 Dark Mode</div>
+    <div class="stack-chip anim-up">📱 Responsive Design</div>
+    <div class="stack-chip anim-up">🔐 Auth client-side</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════
+     PROJETS
+══════════════════════════════════════════ -->
+<section id="projects" aria-label="Projets">
+  <div class="wrap section-pad">
+
+    <p class="section-label">Projets</p>
+    <h2 class="section-title">Ce que j'ai construit</h2>
+
+    <!-- AITools Pro -->
+    <div class="project-card anim-up" data-url="https://github.com/Djangogo33/AITools" role="link" tabindex="0">
+      <div class="pc-header">
+        <div>
+          <p class="pc-num">01 / AITools</p>
+          <h3 class="pc-name">AITools Pro v4.0</h3>
+        </div>
+        <span class="pc-badge badge-ext">Extension Chrome</span>
+      </div>
+      <p class="pc-desc">
+        Suite tout-en-un pour Chrome — recherche Google améliorée avec 4 boutons rapides
+        (Maps, ChatGPT, Filtres...), mode sombre universel, minuteur Pomodoro, bloqueur
+        de pubs, convertisseur de devises au clic droit, gestionnaire d'onglets Zen,
+        surlignage &amp; notes persistantes. Release officielle : 1er mars 2026.
+      </p>
+      <div class="pc-footer">
+        <div class="pc-tags">
+          <span class="tag">JavaScript 83%</span>
+          <span class="tag">Manifest V3</span>
+          <span class="tag">Chrome API</span>
+          <span class="tag">Productivité</span>
+        </div>
+        <span class="pc-link">Voir sur GitHub ↗</span>
+      </div>
+    </div>
+
+    <!-- TutoFacile -->
+    <div class="project-card anim-up" data-url="https://djangogo33.github.io/optitools" role="link" tabindex="0">
+      <div class="pc-header">
+        <div>
+          <p class="pc-num">02 / Optitools</p>
+          <h3 class="pc-name">TutoFacile — Plateforme de tutoriels</h3>
+        </div>
+        <span class="pc-badge badge-live">Live ↗</span>
+      </div>
+      <p class="pc-desc">
+        Plateforme collaborative open source pour partager des tutoriels gratuits —
+        bricolage, cuisine, programmation, jardinage. Auth complète (register / login / dashboard),
+        dark mode, multilingue FR/EN, 50+ tutoriels, panel admin CRUD. Déployé sur Netlify.
+      </p>
+      <div class="pc-footer">
+        <div class="pc-tags">
+          <span class="tag">HTML 55%</span>
+          <span class="tag">JavaScript 30%</span>
+          <span class="tag">Python</span>
+          <span class="tag">Netlify</span>
+          <span class="tag">Open Source</span>
+        </div>
+        <span class="pc-link">Visiter le site ↗</span>
+      </div>
+    </div>
+
+    <!-- NewTab -->
+    <div class="project-card anim-up" data-url="https://github.com/Djangogo33/newtab" role="link" tabindex="0">
+      <div class="pc-header">
+        <div>
+          <p class="pc-num">03 / NewTab</p>
+          <h3 class="pc-name">NewTab — Page d'accueil Chrome</h3>
+        </div>
+        <span class="pc-badge badge-html">HTML</span>
+      </div>
+      <p class="pc-desc">
+        Extension Chrome remplaçant la page de nouvel onglet par une interface minimaliste.
+        Redirection intelligente vers Google, intégration avec AITools Pro.
+      </p>
+      <div class="pc-footer">
+        <div class="pc-tags">
+          <span class="tag">HTML</span>
+          <span class="tag">Chrome Extension</span>
+        </div>
+        <span class="pc-link">Voir sur GitHub ↗</span>
+      </div>
+    </div>
+
+    <!-- Projet à venir -->
+    <div class="project-card anim-up project-wip">
+      <div class="pc-header">
+        <div>
+          <p class="pc-num">04 / En cours</p>
+          <h3 class="pc-name">Prochain projet — à venir</h3>
+        </div>
+        <span class="pc-badge badge-wip">WIP</span>
+      </div>
+      <p class="pc-desc">
+        Toujours en construction… 🚧 Reste à l'écoute sur GitHub et Discord pour la suite.
+      </p>
+      <div class="pc-footer">
+        <div class="pc-tags">
+          <span class="tag">Coming soon</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════
+     PARCOURS / TIMELINE
+══════════════════════════════════════════ -->
+<section id="parcours" aria-label="Parcours">
+  <div class="wrap section-pad">
+
+    <p class="section-label">Parcours</p>
+    <h2 class="section-title">Mon évolution</h2>
+
+    <div class="timeline">
+
+      <div class="tl-item anim-up">
+        <p class="tl-date">Débuts</p>
+        <h3 class="tl-title">Premiers pas en dev web</h3>
+        <p class="tl-desc">Découverte du HTML, CSS et JavaScript. Premiers projets perso,
+        apprentissage autodidacte, curiosité pour la création d'outils utiles au quotidien.</p>
+      </div>
+
+      <div class="tl-item anim-up">
+        <p class="tl-date">Phase 1</p>
+        <h3 class="tl-title">TutoFacile — première vraie plateforme</h3>
+        <p class="tl-desc">Création d'un site web complet avec authentification client-side,
+        dark mode, multilingue FR/EN, 50+ tutoriels. Premier vrai déploiement public sur Netlify.</p>
+      </div>
+
+      <div class="tl-item anim-up">
+        <p class="tl-date">Phase 2</p>
+        <h3 class="tl-title">AITools — plongée dans les extensions Chrome</h3>
+        <p class="tl-desc">Développement d'une extension complexe (Manifest V3), service workers,
+        injection de scripts dans des pages tierces, stockage persistant chrome.storage.
+        Collaboration avec @Djangogo995 sur la roadmap.</p>
+      </div>
+
+      <div class="tl-item anim-up">
+        <p class="tl-date">1er mars 2026</p>
+        <h3 class="tl-title">AITools Pro v4.0 — release officielle</h3>
+        <p class="tl-desc">Architecture refactorisée, tous les tests validés,
+        suite productivité complète. Disponible publiquement sur GitHub.</p>
+      </div>
+
+      <div class="tl-item anim-up">
+        <p class="tl-date current">Maintenant →</p>
+        <h3 class="tl-title">Toujours en construction</h3>
+        <p class="tl-desc">Roadmap : synchronisation cloud pour AITools, support Firefox,
+        intégration Notion, marketplace de plugins, nouveaux projets à venir.</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════
+     BLOG
+══════════════════════════════════════════ -->
+<section id="blog" aria-label="Blog">
+  <div class="wrap section-pad">
+
+    <p class="section-label">Blog</p>
+    <h2 class="section-title">Projets &amp; tutoriels tech</h2>
+
+    <!-- Rendu dynamique par blog.js -->
+    <div id="blog-grid" class="blog-grid"></div>
+
+    <div class="blog-cta anim-up">
+      <strong>D'autres articles arrivent bientôt</strong>
+      Suis les mises à jour sur GitHub et Discord pour ne rien rater.
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════
+     CONTACT
+══════════════════════════════════════════ -->
+<section id="contact" aria-label="Contact">
+  <div class="wrap section-pad">
+
+    <p class="section-label" style="justify-content:center">Contact</p>
+
+    <h2 class="contact-title">
+      On <span class="gradient-text">collabore</span>&nbsp;?
+    </h2>
+
+    <p class="contact-sub">
+      Toujours ouvert à de nouveaux projets, feedbacks ou échanges tech.
+      Retrouve-moi sur GitHub, Discord ou WhatsApp.
+    </p>
+
+    <div class="contact-btns">
+      <button class="btn btn-primary" onclick="go('https://github.com/Djangogo33')">GitHub →</button>
+      <button class="btn btn-teal"    onclick="go('https://discord.com/invite/7F8jX2Se')">Discord</button>
+      <button class="btn btn-pink"    onclick="go('https://whatsapp.com/channel/0029VbCJCg06GcG7aLZPGu1f')">WhatsApp</button>
+    </div>
+
+    <div class="contact-links-grid">
+      <div class="contact-chip" onclick="go('https://github.com/Djangogo33/AITools')">🔌 AITools Pro</div>
+      <div class="contact-chip" onclick="go('https://djangogo33.github.io/optitools')">📚 TutoFacile</div>
+      <div class="contact-chip" onclick="go('https://github.com/Djangogo33/newtab')">🗂️ NewTab</div>
+      <div class="contact-chip" onclick="go('https://discord.com/invite/7F8jX2Se')">💬 Discord community</div>
+      <div class="contact-chip" onclick="go('https://whatsapp.com/channel/0029VbCJCg06GcG7aLZPGu1f')">📱 WhatsApp channel</div>
+      <!-- Décommente quand disponible :
+      <div class="contact-chip" onclick="go('[CHROME_STORE_URL]')">🧩 AITools sur Chrome</div>
+      -->
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════ -->
+<footer>
+  <span>© <span id="footer-year">2026</span> Djangogo33 — France</span>
+  <span class="footer-center">Built with ❤️ · HTML · CSS · JS</span>
+  <div class="footer-right">
+    <span onclick="go('https://github.com/Djangogo33')">GitHub ↗</span>
+    <span onclick="go('https://discord.com/invite/7F8jX2Se')">Discord ↗</span>
+    <span onclick="go('https://whatsapp.com/channel/0029VbCJCg06GcG7aLZPGu1f')">WhatsApp ↗</span>
+  </div>
+</footer>
+
+<!-- JS (en bas pour performance) -->
+<script src="js/main.js"></script>
+<script src="js/blog.js"></script>
+
+</body>
+</html>

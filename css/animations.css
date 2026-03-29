@@ -1,0 +1,32 @@
+/* ============================================
+   ANIMATIONS.CSS — Classes d'animation au scroll
+   ============================================ */
+
+/* Éléments à animer (invisibles par défaut) */
+.anim-up {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+/* Classe ajoutée par JS quand l'élément est visible */
+.anim-visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* Délais en cascade pour les grilles */
+.anim-up:nth-child(1)  { transition-delay: 0.00s; }
+.anim-up:nth-child(2)  { transition-delay: 0.07s; }
+.anim-up:nth-child(3)  { transition-delay: 0.14s; }
+.anim-up:nth-child(4)  { transition-delay: 0.21s; }
+.anim-up:nth-child(5)  { transition-delay: 0.28s; }
+.anim-up:nth-child(6)  { transition-delay: 0.35s; }
+
+/* Hero — animations séquentielles définies inline */
+.hero-eyebrow  { animation: fadeUp 0.6s 0.0s ease both; }
+.hero-title    { animation: fadeUp 0.6s 0.1s ease both; }
+.hero-tagline  { animation: fadeUp 0.6s 0.2s ease both; }
+.hero-actions  { animation: fadeUp 0.6s 0.3s ease both; }
+.hero-terminal { animation: fadeUp 0.6s 0.4s ease both; }
+.hero-scroll   { animation: fadeUp 0.6s 0.6s ease both; }
