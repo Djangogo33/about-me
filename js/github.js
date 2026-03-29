@@ -10,7 +10,7 @@ const GitHub = (() => {
      dans sessionStorage, jamais en dur ici).
   ─────────────────────────────────────────── */
   const REPO_OWNER  = 'Djangogo33';
-  const REPO_NAME   = 'djangogo33.github.io'; /* Ton repo GitHub Pages */
+  const REPO_NAME   = 'djangogo33.github.io/about-me/'; /* Ton repo GitHub Pages */
   const FILE_PATH   = 'data/posts.json';
   const API_BASE    = 'https://api.github.com';
   const TOKEN_KEY   = 'dj33_gh_token'; /* Clé sessionStorage */
