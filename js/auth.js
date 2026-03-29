@@ -12,9 +12,9 @@ const Auth = (() => {
   ─────────────────────────────────────────── */
   const ADMIN_USER        = 'djangogo33';
   /* SHA-256 de "AdminPass2026!" — CHANGE CE MOT DE PASSE */
-  const ADMIN_PASS_HASH   = '692ada71d366a84b6a441708411824b66edc1ca0f8bf857a56cda1777af1f04d';
+  const ADMIN_PASS_HASH   = '3317aa538c37cc0d073839ea8d98438e78c5eb32e1119b5e4e22ff0992bc91af';
   /* Sel secret pour signer les tokens — CHANGE CETTE VALEUR */
-  const TOKEN_SECRET      = 'dj33-secret-salt-2026-xK9mP2nQ';
+  const TOKEN_SECRET      = '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';
   const SESSION_DURATION  = 24 * 60 * 60 * 1000; /* 24 heures en ms */
   const SESSION_KEY       = 'dj33_admin_session';
 
