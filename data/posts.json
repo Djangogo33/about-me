@@ -1,0 +1,15 @@
+[
+  {
+    "id": "1743200000000",
+    "title": "Comment j'ai créé AITools Pro v4.0",
+    "tag": "Extension Chrome",
+    "coverImage": "",
+    "excerpt": "De l'idée à la production : architecture Manifest V3, service workers, injection de scripts dans des pages tierces et gestion du stockage persistant.",
+    "content": "<h2>Pourquoi AITools Pro ?</h2><p>Tout a commencé par une frustration simple : passer trop de temps à naviguer entre des onglets différents pour chercher sur Maps, ChatGPT ou Wikipedia. Je voulais un seul outil accessible partout dans Chrome.</p><h2>L'architecture : Manifest V3</h2><p>AITools Pro est construit sur <strong>Manifest V3</strong>, la dernière version du système d'extensions Chrome. Contrairement à MV2, MV3 impose l'utilisation de <em>service workers</em> à la place des background pages persistantes.</p><p>Concrètement ça veut dire :</p><ul><li>Le background script se lance seulement quand nécessaire, ce qui économise la RAM</li><li>La communication popup ↔ content script se fait via <code>chrome.runtime.sendMessage</code></li><li>Le stockage utilise <code>chrome.storage.local</code> (inaccessible dans les workers)</li></ul><h2>Le mode sombre universel</h2><p>L'un des features les plus appréciés. On injecte une feuille de style CSS globale qui force un filtre sombre sur toute la page. Simple, mais efficace sur 99% des sites.</p><h2>Ce que j'ai appris</h2><p>Ce projet m'a appris à gérer la <strong>communication asynchrone</strong> entre différents contextes (popup, background, content), à respecter les contraintes CSP de MV3, et à penser en termes d'expérience utilisateur.</p>",
+    "readtime": "6",
+    "date": "2026-03-01",
+    "dateDisplay": "Mars 2026",
+    "url": "https://github.com/Djangogo33/AITools",
+    "published": true
+  }
+]

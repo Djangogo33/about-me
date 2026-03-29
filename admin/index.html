@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — Djangogo33</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+  /* ── Variables ── */
+  :root {
+    --bg:      #07070d;
+    --bg2:     #0e0e18;
+    --bg3:     #14141f;
+    --bg4:     #1c1c2e;
+    --border:  rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.13);
+    --accent:  #7c6aff;
+    --pink:    #ff6a9e;
+    --teal:    #6affd4;
+    --red:     #ff5f56;
+    --green:   #27c93f;
+    --amber:   #ffbd2e;
+    --text:    #e8e8f0;
+    --muted:   #6868a0;
+    --r:       6px;
+    --mono:    'Space Mono', monospace;
+    --display: 'Syne', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── Layout ── */
+  .page { display: none; }
+  .page.active { display: flex; flex-direction: column; min-height: 100vh; }
+
+  /* ════════════════════════════════════════
+     PAGE LOGIN
+  ════════════════════════════════════════ */
+  #page-login {
+    align-items: center;
+    justify-content: center;
+    background: var(--bg);
+  }
+  #page-login::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(124,106,255,.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(124,106,255,.025) 1px, transparent 1px);
+    background-size: 44px 44px;
+    pointer-events: none;
+  }
+  .login-box {
+    position: relative; z-index: 1;
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    border-radius: 12px;
+    padding: 2.5rem;
+    width: min(420px, 94vw);
+  }
+  .login-logo {
+    font-family: var(--display);
+    font-size: 1.1rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--accent), var(--pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: .4rem;
+  }
+  .login-subtitle {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+  .field { margin-bottom: 1.1rem; }
+  .field label {
+    display: block;
+    font-size: 11px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .field input, .field select, .field textarea {
+    width: 100%;
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    border-radius: var(--r);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 13px;
+    padding: 10px 14px;
+    outline: none;
+    transition: border-color .2s;
+    -webkit-appearance: none;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(124,106,255,.15);
+  }
+  .field input[type="password"] { letter-spacing: .1em; }
+  .field textarea { resize: vertical; min-height: 80px; }
+
+  .login-token-hint {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 5px;
+    line-height: 1.6;
+  }
+  .login-token-hint a { color: var(--accent); cursor: pointer; }
+
+  .btn-login {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, var(--accent), #9e56ff);
+    color: #fff;
+    border: none;
+    border-radius: var(--r);
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    cursor: pointer;
+    margin-top: .5rem;
+    transition: transform .15s, box-shadow .15s;
+  }
+  .btn-login:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(124,106,255,.35); }
+  .btn-login:active { transform: translateY(0); }
+  .btn-login:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+
+  .login-error {
+    background: rgba(255,95,86,.12);
+    border: 1px solid rgba(255,95,86,.3);
+    border-radius: var(--r);
+    color: #ff7a72;
+    font-size: 12px;
+    padding: 10px 14px;
+    margin-top: 1rem;
+    display: none;
+  }
+  .login-error.visible { display: block; }
+
+  /* ════════════════════════════════════════
+     PAGE ADMIN
+  ════════════════════════════════════════ */
+  #page-admin { flex-direction: column; }
+
+  /* Topbar */
+  .admin-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: .9rem 2rem;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; z-index: 100;
+    gap: 1rem;
+  }
+  .topbar-logo {
+    font-family: var(--display);
+    font-size: .95rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--accent), var(--pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .topbar-badge {
+    font-size: 10px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid rgba(124,106,255,.3);
+    padding: 3px 9px;
+    border-radius: 20px;
+  }
+  .topbar-right { display: flex; align-items: center; gap: .75rem; margin-left: auto; }
+  .topbar-status {
+    font-size: 11px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .status-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--green);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+  /* Boutons toolbar */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .04em;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+    transition: all .2s;
+    white-space: nowrap;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: #9e80ff; transform: translateY(-1px); }
+  .btn-primary:disabled { opacity:.5; cursor:not-allowed; transform:none; }
+  .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border2); }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-danger { background: transparent; color: var(--red); border: 1px solid rgba(255,95,86,.3); }
+  .btn-danger:hover { background: rgba(255,95,86,.1); }
+  .btn-success { background: var(--green); color: #000; font-weight: 700; }
+  .btn-success:hover { background: #4ddb60; transform: translateY(-1px); }
+  .btn-success:disabled { opacity:.5; cursor:not-allowed; transform:none; }
+
+  /* Body admin */
+  .admin-body {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 0;
+    flex: 1;
+    min-height: 0;
+  }
+
+  /* ── Sidebar liste des articles ── */
+  .sidebar {
+    background: var(--bg2);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 57px);
+  }
+  .sidebar-header {
+    padding: 1.2rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .sidebar-title {
+    font-size: 11px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .posts-list { flex: 1; overflow-y: auto; padding: .5rem; }
+  .post-item {
+    padding: .85rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background .15s;
+    margin-bottom: 2px;
+    border: 1px solid transparent;
+  }
+  .post-item:hover { background: var(--bg3); }
+  .post-item.active { background: var(--bg3); border-color: var(--border2); }
+  .post-item-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 3px;
+  }
+  .post-item-meta {
+    font-size: 10px;
+    color: var(--muted);
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .pill {
+    font-size: 9px;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 10px;
+  }
+  .pill-pub  { background: rgba(39,201,63,.12); color: var(--green); border: 1px solid rgba(39,201,63,.2); }
+  .pill-draft{ background: rgba(255,189,46,.1); color: var(--amber); border: 1px solid rgba(255,189,46,.2); }
+  .post-item-actions {
+    display: flex;
+    gap: 4px;
+    margin-top: 6px;
+  }
+  .btn-xs {
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+    border: 1px solid var(--border2);
+    background: transparent;
+    color: var(--muted);
+    font-family: var(--mono);
+    transition: all .15s;
+  }
+  .btn-xs:hover { color: var(--text); border-color: var(--border2); background: var(--bg4); }
+  .btn-xs.del:hover { color: var(--red); border-color: rgba(255,95,86,.3); }
+  .sidebar-empty {
+    padding: 2rem 1.5rem;
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.8;
+  }
+
+  /* ── Éditeur ── */
+  .editor-panel {
+    display: flex;
+    flex-direction: column;
+    background: var(--bg);
+    overflow: hidden;
+  }
+  .editor-toolbar {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    padding: .7rem 1.5rem;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .editor-toolbar-sep {
+    width: 1px; height: 20px;
+    background: var(--border2);
+    margin: 0 .3rem;
+  }
+  .tool-btn {
+    width: 30px; height: 30px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    background: transparent;
+    color: var(--muted);
+    font-size: 13px;
+    font-family: var(--mono);
+    transition: all .15s;
+    font-weight: 700;
+  }
+  .tool-btn:hover { background: var(--bg3); border-color: var(--border2); color: var(--text); }
+  .tool-btn.active { background: rgba(124,106,255,.15); border-color: rgba(124,106,255,.3); color: var(--accent); }
+  .tool-btn-wide { width: auto; padding: 0 10px; font-size: 11px; }
+
+  /* Tabs preview/edit */
+  .editor-tabs {
+    display: flex;
+    gap: 0;
+    margin-left: auto;
+  }
+  .editor-tab {
+    font-size: 10px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border: 1px solid var(--border2);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    font-family: var(--mono);
+    transition: all .15s;
+  }
+  .editor-tab:first-child { border-radius: 4px 0 0 4px; }
+  .editor-tab:last-child  { border-radius: 0 4px 4px 0; border-left: none; }
+  .editor-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  /* Formulaire méta */
+  .editor-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    padding: 1.2rem 1.5rem;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+  }
+  .meta-field { display: flex; flex-direction: column; gap: 5px; }
+  .meta-label {
+    font-size: 10px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .meta-field input, .meta-field select {
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    border-radius: 4px;
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 7px 10px;
+    outline: none;
+    transition: border-color .2s;
+    -webkit-appearance: none;
+  }
+  .meta-field input:focus, .meta-field select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(124,106,255,.15);
+  }
+  .meta-field select option { background: var(--bg3); }
+  .cover-row {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+  .cover-preview {
+    width: 80px; height: 52px;
+    border-radius: 4px;
+    background: var(--bg4);
+    border: 1px solid var(--border2);
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    font-size: 18px;
+  }
+  .cover-preview img { width: 100%; height: 100%; object-fit: cover; }
+  .cover-input-wrap { flex: 1; }
+  .meta-hint {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 3px;
+    line-height: 1.5;
+  }
+
+  /* Zone d'écriture */
+  .editor-main {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+  .editor-main.split { grid-template-columns: 1fr 1fr; }
+
+  /* Éditeur brut */
+  #editor-content {
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+    background: var(--bg);
+    border: none;
+    outline: none;
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.85;
+    padding: 2rem;
+    resize: none;
+    border-right: 1px solid var(--border);
+  }
+
+  /* Prévisualisation */
+  .editor-preview {
+    padding: 2rem;
+    overflow-y: auto;
+    background: var(--bg);
+    display: none;
+  }
+  .editor-preview.visible { display: block; }
+  .editor-main.split .editor-preview { display: block; }
+
+  /* Styles de l'aperçu article */
+  .preview-inner { max-width: 620px; }
+  .preview-tag  { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: .5rem; }
+  .preview-title { font-family: var(--display); font-size: 1.6rem; font-weight: 800; letter-spacing: -.03em; line-height: 1.2; margin-bottom: .5rem; }
+  .preview-meta { font-size: 11px; color: var(--muted); margin-bottom: 1.5rem; }
+  .preview-cover { width: 100%; max-height: 240px; object-fit: cover; border-radius: var(--r); margin-bottom: 1.5rem; display: none; }
+  .preview-cover.visible { display: block; }
+  .preview-body { font-size: 13px; color: #a0a0c0; line-height: 1.9; }
+  .preview-body h2 { font-family: var(--display); font-size: 1.1rem; font-weight: 700; color: var(--text); margin: 1.4rem 0 .5rem; }
+  .preview-body h3 { font-family: var(--display); font-size: .95rem; font-weight: 700; color: var(--text); margin: 1rem 0 .4rem; }
+  .preview-body p  { margin-bottom: .85rem; }
+  .preview-body ul, .preview-body ol { padding-left: 1.5rem; margin-bottom: .85rem; }
+  .preview-body li { margin-bottom: .25rem; }
+  .preview-body strong { color: var(--text); font-weight: 700; }
+  .preview-body em { color: var(--pink); font-style: normal; }
+  .preview-body code {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--teal);
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    padding: 1px 6px;
+    border-radius: 3px;
+  }
+  .preview-body pre {
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    border-radius: var(--r);
+    padding: 1rem 1.2rem;
+    overflow-x: auto;
+    margin: .8rem 0;
+  }
+  .preview-body pre code { background: none; border: none; padding: 0; }
+  .preview-body a { color: var(--accent); text-decoration: underline; }
+  .preview-body blockquote {
+    border-left: 3px solid var(--accent);
+    padding-left: 1rem;
+    color: var(--muted);
+    margin: 1rem 0;
+    font-style: italic;
+  }
+
+  /* Barre de statut bas */
+  .editor-statusbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .5rem 1.5rem;
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: .05em;
+    gap: 1rem;
+  }
+  .status-msg { color: var(--teal); display: none; }
+  .status-msg.visible { display: inline; }
+  .status-err { color: var(--red); display: none; }
+  .status-err.visible { display: inline; }
+
+  /* Toast notification */
+  .toast {
+    position: fixed;
+    bottom: 2rem; right: 2rem;
+    z-index: 999;
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    border-radius: var(--r);
+    padding: .9rem 1.4rem;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all .3s ease;
+    pointer-events: none;
+    max-width: 340px;
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+  .toast.success { border-color: rgba(39,201,63,.3); }
+  .toast.error   { border-color: rgba(255,95,86,.3); }
+  .toast-icon { font-size: 16px; }
+
+  /* Dialog de confirmation */
+  .dialog-overlay {
+    position: fixed; inset: 0; z-index: 300;
+    background: rgba(0,0,0,.6);
+    backdrop-filter: blur(4px);
+    display: flex; align-items: center; justify-content: center;
+    display: none;
+  }
+  .dialog-overlay.open { display: flex; }
+  .dialog-box {
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    border-radius: 10px;
+    padding: 2rem;
+    width: min(380px, 92vw);
+    animation: fadeUp .2s ease;
+  }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+  .dialog-title { font-family: var(--display); font-size: 1.1rem; font-weight: 800; margin-bottom: .6rem; }
+  .dialog-msg { font-size: 12px; color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; }
+  .dialog-actions { display: flex; gap: .6rem; justify-content: flex-end; }
+
+  /* Responsive */
+  @media (max-width: 800px) {
+    .admin-body { grid-template-columns: 1fr; }
+    .sidebar { min-height: auto; border-right: none; border-bottom: 1px solid var(--border); }
+    .editor-meta { grid-template-columns: 1fr 1fr; }
+    .editor-main.split { grid-template-columns: 1fr; }
+    .editor-main.split .editor-preview { border-top: 1px solid var(--border); }
+  }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     PAGE LOGIN
+══════════════════════════════════════════ -->
+<div id="page-login" class="page active">
+  <div class="login-box">
+    <div class="login-logo">Djangogo33</div>
+    <div class="login-subtitle">Admin — Gestion du blog</div>
+
+    <div class="field">
+      <label>Identifiant</label>
+      <input type="text" id="login-user" placeholder="djangogo33" autocomplete="username">
+    </div>
+    <div class="field">
+      <label>Mot de passe</label>
+      <input type="password" id="login-pass" placeholder="••••••••••••" autocomplete="current-password">
+    </div>
+    <div class="field">
+      <label>GitHub Token (PAT)</label>
+      <input type="password" id="login-token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off">
+      <p class="login-token-hint">
+        Requis pour sauvegarder les articles sur GitHub.<br>
+        <a onclick="window.open('https://github.com/settings/tokens/new?scopes=repo&description=Blog+Admin+Djangogo33','_blank')">
+          → Créer un token (repo scope) ↗
+        </a>
+      </p>
+    </div>
+
+    <button class="btn-login" id="login-btn" onclick="doLogin()">Se connecter</button>
+
+    <div class="login-error" id="login-error"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE ADMIN
+══════════════════════════════════════════ -->
+<div id="page-admin" class="page">
+
+  <!-- Topbar -->
+  <div class="admin-topbar">
+    <span class="topbar-logo">Djangogo33</span>
+    <span class="topbar-badge">Admin Blog</span>
+    <div class="topbar-right">
+      <span class="topbar-status">
+        <span class="status-dot"></span>
+        <span id="topbar-repo">GitHub connecté</span>
+      </span>
+      <button class="btn btn-ghost" onclick="newPost()">+ Nouvel article</button>
+      <button class="btn btn-danger" onclick="doLogout()">Déconnexion</button>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="admin-body">
+
+    <!-- Sidebar liste -->
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <span class="sidebar-title">Articles <span id="posts-count">(0)</span></span>
+        <button class="btn btn-ghost" style="font-size:10px;padding:5px 10px" onclick="loadPosts()">⟳ Sync</button>
+      </div>
+      <div class="posts-list" id="posts-list">
+        <div class="sidebar-empty">Chargement…</div>
+      </div>
+    </div>
+
+    <!-- Éditeur -->
+    <div class="editor-panel">
+
+      <!-- Toolbar formatage -->
+      <div class="editor-toolbar">
+        <button class="tool-btn" title="Gras" onclick="fmt('bold')"><b>B</b></button>
+        <button class="tool-btn" title="Italique" onclick="fmt('italic')"><i>I</i></button>
+        <button class="tool-btn" title="Souligné" onclick="fmt('underline')"><u>U</u></button>
+        <button class="tool-btn" title="Barré" onclick="fmt('strikeThrough')"><s>S</s></button>
+        <div class="editor-toolbar-sep"></div>
+        <button class="tool-btn tool-btn-wide" title="Titre H2" onclick="fmt('h2')">H2</button>
+        <button class="tool-btn tool-btn-wide" title="Titre H3" onclick="fmt('h3')">H3</button>
+        <div class="editor-toolbar-sep"></div>
+        <button class="tool-btn" title="Liste à puces" onclick="fmt('ul')">≡</button>
+        <button class="tool-btn" title="Liste numérotée" onclick="fmt('ol')">1.</button>
+        <button class="tool-btn" title="Citation" onclick="fmt('blockquote')">"</button>
+        <button class="tool-btn" title="Code inline" onclick="fmt('code')">&lt;&gt;</button>
+        <button class="tool-btn tool-btn-wide" title="Bloc de code" onclick="fmt('pre')">pre</button>
+        <button class="tool-btn" title="Lien" onclick="fmt('link')">🔗</button>
+        <div class="editor-toolbar-sep"></div>
+        <div class="editor-tabs">
+          <button class="editor-tab active" id="tab-edit"    onclick="setTab('edit')">Éditer</button>
+          <button class="editor-tab"        id="tab-split"   onclick="setTab('split')">Split</button>
+          <button class="editor-tab"        id="tab-preview" onclick="setTab('preview')">Aperçu</button>
+        </div>
+      </div>
+
+      <!-- Méta-données -->
+      <div class="editor-meta">
+        <div class="meta-field">
+          <span class="meta-label">Titre *</span>
+          <input type="text" id="f-title" placeholder="Mon article..." oninput="onMetaChange()">
+        </div>
+        <div class="meta-field">
+          <span class="meta-label">Tag / catégorie</span>
+          <select id="f-tag" onchange="onMetaChange()">
+            <option value="Extension Chrome">Extension Chrome</option>
+            <option value="Tutoriel">Tutoriel</option>
+            <option value="Dev Web">Dev Web</option>
+            <option value="Open Source">Open Source</option>
+            <option value="Annonce">Annonce</option>
+          </select>
+        </div>
+        <div class="meta-field">
+          <span class="meta-label">Statut</span>
+          <select id="f-published" onchange="onMetaChange()">
+            <option value="true">✅ Publié</option>
+            <option value="false">🟡 Brouillon</option>
+          </select>
+        </div>
+        <div class="meta-field cover-row">
+          <div class="cover-preview" id="cover-preview">🖼️</div>
+          <div class="cover-input-wrap">
+            <span class="meta-label">Image de couverture (URL)</span>
+            <input type="url" id="f-cover" placeholder="https://..." oninput="onCoverChange()">
+            <p class="meta-hint">URL directe vers une image (jpg, png, webp). Laisser vide pour ne pas en avoir.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Zone édition / preview -->
+      <div class="editor-main" id="editor-main">
+        <textarea
+          id="editor-content"
+          placeholder="Écris ton article ici en HTML…&#10;&#10;Exemple :&#10;&lt;h2&gt;Titre&lt;/h2&gt;&#10;&lt;p&gt;Paragraphe…&lt;/p&gt;"
+          oninput="onContentChange()"
+          spellcheck="true"
+        ></textarea>
+        <div class="editor-preview" id="editor-preview">
+          <div class="preview-inner">
+            <div class="preview-tag"  id="pv-tag"></div>
+            <div class="preview-title" id="pv-title">Titre de l'article</div>
+            <div class="preview-meta"  id="pv-meta"></div>
+            <img class="preview-cover" id="pv-cover" src="" alt="Couverture">
+            <div class="preview-body"  id="pv-body"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Barre de statut -->
+      <div class="editor-statusbar">
+        <span>
+          <span id="status-words">0 mots</span> ·
+          <span id="status-readtime">~0 min de lecture</span>
+        </span>
+        <span>
+          <span class="status-msg" id="status-msg"></span>
+          <span class="status-err" id="status-err"></span>
+        </span>
+        <div style="display:flex;gap:.5rem;align-items:center">
+          <button class="btn btn-ghost" id="btn-draft" onclick="savePost(false)" style="font-size:10px;padding:6px 12px">
+            Brouillon
+          </button>
+          <button class="btn btn-success" id="btn-publish" onclick="savePost(true)">
+            💾 Publier
+          </button>
+        </div>
+      </div>
+
+    </div><!-- /editor-panel -->
+  </div><!-- /admin-body -->
+</div><!-- /page-admin -->
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <span class="toast-icon" id="toast-icon"></span>
+  <span id="toast-msg"></span>
+</div>
+
+<!-- Dialog confirmation suppression -->
+<div class="dialog-overlay" id="dialog-del">
+  <div class="dialog-box">
+    <div class="dialog-title">Supprimer l'article ?</div>
+    <p class="dialog-msg" id="dialog-del-msg">Cette action est irréversible. L'article sera supprimé de GitHub.</p>
+    <div class="dialog-actions">
+      <button class="btn btn-ghost" onclick="closeDialog('dialog-del')">Annuler</button>
+      <button class="btn btn-danger" id="dialog-del-confirm">Supprimer</button>
+    </div>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="../js/auth.js"></script>
+<script src="../js/github.js"></script>
+<script>
+/* ══════════════════════════════════════════
+   ÉTAT GLOBAL
+══════════════════════════════════════════ */
+let posts    = [];   /* Tableau des articles */
+let sha      = null; /* SHA du fichier GitHub pour le update */
+let current  = null; /* Article en cours d'édition (objet) */
+let dirty    = false;/* Modifications non sauvegardées */
+let tab      = 'edit';
+
+/* ══════════════════════════════════════════
+   HELPERS UI
+══════════════════════════════════════════ */
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+}
+
+function toast(msg, type = 'success') {
+  const el   = document.getElementById('toast');
+  const icon = document.getElementById('toast-icon');
+  const txt  = document.getElementById('toast-msg');
+  icon.textContent = type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️';
+  txt.textContent  = msg;
+  el.className     = `toast ${type} show`;
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove('show'), 3500);
+}
+
+function statusMsg(msg, isErr = false) {
+  const m = document.getElementById('status-msg');
+  const e = document.getElementById('status-err');
+  if (isErr) { e.textContent = msg; e.classList.add('visible'); m.classList.remove('visible'); }
+  else        { m.textContent = msg; m.classList.add('visible'); e.classList.remove('visible'); }
+  setTimeout(() => { m.classList.remove('visible'); e.classList.remove('visible'); }, 4000);
+}
+
+function showDialog(id) { document.getElementById(id).classList.add('open'); }
+function closeDialog(id){ document.getElementById(id).classList.remove('open'); }
+
+function setBtn(id, loading) {
+  const b = document.getElementById(id);
+  if (!b) return;
+  b.disabled = loading;
+}
+
+/* ══════════════════════════════════════════
+   AUTH
+══════════════════════════════════════════ */
+async function doLogin() {
+  const btn   = document.getElementById('login-btn');
+  const err   = document.getElementById('login-error');
+  const user  = document.getElementById('login-user').value.trim();
+  const pass  = document.getElementById('login-pass').value;
+  const token = document.getElementById('login-token').value.trim();
+
+  err.classList.remove('visible');
+  btn.disabled    = true;
+  btn.textContent = 'Connexion…';
+
+  try {
+    /* 1. Vérifier identifiants */
+    const ok = await Auth.login(user, pass);
+    if (!ok) throw new Error('Identifiant ou mot de passe incorrect.');
+
+    /* 2. Vérifier token GitHub */
+    if (!token) throw new Error('Le GitHub Token est requis.');
+    GitHub.setToken(token);
+    const ghUser = await GitHub.validateToken();
+    if (!ghUser) throw new Error('GitHub Token invalide ou expiré.');
+
+    /* 3. Accès accordé */
+    document.getElementById('topbar-repo').textContent =
+      `${ghUser} → ${GitHub.REPO_OWNER}/${GitHub.REPO_NAME}`;
+    showPage('admin');
+    await loadPosts();
+
+  } catch(e) {
+    err.textContent = e.message;
+    err.classList.add('visible');
+    btn.disabled    = false;
+    btn.textContent = 'Se connecter';
+    GitHub.clearToken();
+  }
+}
+
+/* Vérifier si déjà auth au chargement */
+async function checkSession() {
+  if (await Auth.isAuthenticated() && GitHub.hasToken()) {
+    showPage('admin');
+    await loadPosts();
+  }
+}
+
+function doLogout() {
+  if (dirty && !confirm('Des modifications non sauvegardées seront perdues. Continuer ?')) return;
+  Auth.logout();
+  GitHub.clearToken();
+  showPage('login');
+  document.getElementById('login-pass').value  = '';
+  document.getElementById('login-token').value = '';
+}
+
+/* Enter pour login */
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && document.getElementById('page-login').classList.contains('active')) {
+    doLogin();
+  }
+});
+
+/* ══════════════════════════════════════════
+   CHARGEMENT DES ARTICLES
+══════════════════════════════════════════ */
+async function loadPosts() {
+  const list = document.getElementById('posts-list');
+  list.innerHTML = '<div class="sidebar-empty">Synchronisation GitHub…</div>';
+  try {
+    const result = await GitHub.readPosts();
+    posts = result.posts;
+    sha   = result.sha;
+    renderPostList();
+    if (posts.length > 0 && !current) editPost(posts[0]);
+  } catch(e) {
+    list.innerHTML = `<div class="sidebar-empty" style="color:#ff7a72">Erreur : ${e.message}</div>`;
+    toast('Impossible de charger les articles : ' + e.message, 'error');
+  }
+}
+
+function renderPostList() {
+  const list = document.getElementById('posts-list');
+  document.getElementById('posts-count').textContent = `(${posts.length})`;
+
+  if (!posts.length) {
+    list.innerHTML = '<div class="sidebar-empty">Aucun article.<br>Crée ton premier article →</div>';
+    return;
+  }
+
+  list.innerHTML = posts.map(p => `
+    <div class="post-item ${current && current.id === p.id ? 'active' : ''}"
+         data-id="${p.id}" onclick="editPost(getPost('${p.id}'))">
+      <div class="post-item-title">${p.title || 'Sans titre'}</div>
+      <div class="post-item-meta">
+        <span class="pill ${p.published ? 'pill-pub' : 'pill-draft'}">
+          ${p.published ? 'Publié' : 'Brouillon'}
+        </span>
+        <span>${p.dateDisplay || ''}</span>
+      </div>
+      <div class="post-item-actions">
+        <button class="btn-xs" onclick="event.stopPropagation();editPost(getPost('${p.id}'))">✏️ Éditer</button>
+        <button class="btn-xs del" onclick="event.stopPropagation();confirmDelete('${p.id}')">🗑️ Suppr.</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function getPost(id) {
+  return posts.find(p => p.id === id);
+}
+
+/* ══════════════════════════════════════════
+   ÉDITEUR
+══════════════════════════════════════════ */
+function editPost(post) {
+  if (!post) return;
+  if (dirty && !confirm('Des modifications non sauvegardées seront perdues. Continuer ?')) return;
+  current = { ...post };
+  dirty   = false;
+
+  document.getElementById('f-title').value     = post.title || '';
+  document.getElementById('f-tag').value       = post.tag || 'Dev Web';
+  document.getElementById('f-published').value = String(post.published !== false);
+  document.getElementById('f-cover').value     = post.coverImage || '';
+  document.getElementById('editor-content').value = post.content || '';
+
+  onCoverChange();
+  updateStats();
+  updatePreview();
+  renderPostList(); /* Mettre à jour la sélection */
+}
+
+function newPost() {
+  if (dirty && !confirm('Des modifications non sauvegardées seront perdues. Continuer ?')) return;
+  current = {
+    id:          GitHub.genId(),
+    title:       '',
+    tag:         'Dev Web',
+    coverImage:  '',
+    excerpt:     '',
+    content:     '',
+    readtime:    '1',
+    date:        new Date().toISOString().slice(0, 10),
+    dateDisplay: GitHub.formatDate(new Date().toISOString().slice(0, 10)),
+    url:         '',
+    published:   false,
+  };
+  dirty = false;
+
+  document.getElementById('f-title').value     = '';
+  document.getElementById('f-tag').value       = 'Dev Web';
+  document.getElementById('f-published').value = 'false';
+  document.getElementById('f-cover').value     = '';
+  document.getElementById('editor-content').value = '';
+
+  onCoverChange();
+  updateStats();
+  updatePreview();
+
+  /* Focus sur le titre */
+  document.getElementById('f-title').focus();
+}
+
+/* ── Formatage toolbar ── */
+function fmt(type) {
+  const ta = document.getElementById('editor-content');
+  const start = ta.selectionStart;
+  const end   = ta.selectionEnd;
+  const sel   = ta.value.slice(start, end);
+  const before = ta.value.slice(0, start);
+  const after  = ta.value.slice(end);
+
+  const wrap = (tag) => {
+    const wrapped = `<${tag}>${sel}</${tag}>`;
+    ta.value = before + wrapped + after;
+    ta.selectionStart = start + tag.length + 2;
+    ta.selectionEnd   = start + tag.length + 2 + sel.length;
+  };
+  const block = (tag) => {
+    const nl = before.endsWith('\n') || before === '' ? '' : '\n';
+    const wrapped = `${nl}<${tag}>\n  ${sel || 'Texte'}\n</${tag}>\n`;
+    ta.value = before + wrapped + after;
+  };
+
+  switch(type) {
+    case 'bold':        wrap('strong'); break;
+    case 'italic':      wrap('em'); break;
+    case 'underline':   wrap('u'); break;
+    case 'strikeThrough': wrap('s'); break;
+    case 'code':        wrap('code'); break;
+    case 'h2':          block('h2'); break;
+    case 'h3':          block('h3'); break;
+    case 'ul':          block('ul'); break;
+    case 'ol':          block('ol'); break;
+    case 'blockquote':  block('blockquote'); break;
+    case 'pre':         block('pre'); break;
+    case 'link': {
+      const url = prompt('URL du lien :', 'https://');
+      if (url) {
+        const linked = `<a href="${url}">${sel || url}</a>`;
+        ta.value = before + linked + after;
+      }
+      break;
+    }
+  }
+  ta.focus();
+  onContentChange();
+}
+
+/* ── Onglets édition / split / preview ── */
+function setTab(t) {
+  tab = t;
+  document.getElementById('tab-edit').classList.toggle('active',    t === 'edit');
+  document.getElementById('tab-split').classList.toggle('active',   t === 'split');
+  document.getElementById('tab-preview').classList.toggle('active', t === 'preview');
+
+  const main    = document.getElementById('editor-main');
+  const content = document.getElementById('editor-content');
+  const preview = document.getElementById('editor-preview');
+
+  main.classList.toggle('split', t === 'split');
+  content.style.display = t === 'preview' ? 'none' : '';
+  preview.classList.toggle('visible', t !== 'edit');
+
+  if (t !== 'edit') updatePreview();
+}
+
+/* ── Mise à jour preview ── */
+function updatePreview() {
+  if (tab === 'edit') return;
+  const title   = document.getElementById('f-title').value;
+  const tag     = document.getElementById('f-tag').value;
+  const content = document.getElementById('editor-content').value;
+  const cover   = document.getElementById('f-cover').value;
+  const rt      = GitHub.calcReadtime(content);
+  const now     = new Date().toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
+
+  document.getElementById('pv-tag').textContent   = tag;
+  document.getElementById('pv-title').textContent = title || 'Titre de l\'article';
+  document.getElementById('pv-meta').textContent  = `${now} · ${rt} min de lecture`;
+  document.getElementById('pv-body').innerHTML    = content;
+
+  const covEl = document.getElementById('pv-cover');
+  if (cover) { covEl.src = cover; covEl.classList.add('visible'); }
+  else        { covEl.classList.remove('visible'); }
+}
+
+/* ── Stats (mots / temps) ── */
+function updateStats() {
+  const text  = document.getElementById('editor-content').value.replace(/<[^>]+>/g, ' ');
+  const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+  const rt    = Math.max(1, Math.round(words / 200));
+  document.getElementById('status-words').textContent   = `${words} mot${words !== 1 ? 's' : ''}`;
+  document.getElementById('status-readtime').textContent = `~${rt} min de lecture`;
+}
+
+function onContentChange() { dirty = true; updateStats(); updatePreview(); }
+function onMetaChange()    { dirty = true; updatePreview(); }
+function onCoverChange()   {
+  dirty = true;
+  const url  = document.getElementById('f-cover').value;
+  const prev = document.getElementById('cover-preview');
+  if (url) {
+    prev.innerHTML = `<img src="${url}" alt="Couverture" onerror="this.parentElement.innerHTML='🖼️'">`;
+  } else {
+    prev.innerHTML = '🖼️';
+  }
+  updatePreview();
+}
+
+/* ══════════════════════════════════════════
+   SAUVEGARDE
+══════════════════════════════════════════ */
+async function savePost(publish) {
+  if (!current) return;
+
+  const title   = document.getElementById('f-title').value.trim();
+  const content = document.getElementById('editor-content').value.trim();
+  if (!title)   { toast('Le titre est obligatoire.', 'error'); return; }
+  if (!content) { toast('Le contenu est vide.', 'error'); return; }
+
+  const pubBtn   = document.getElementById('btn-publish');
+  const drafBtn  = document.getElementById('btn-draft');
+  pubBtn.disabled = drafBtn.disabled = true;
+  pubBtn.textContent = '⏳ Sauvegarde…';
+
+  try {
+    const rt = GitHub.calcReadtime(content);
+    const isPublished = publish !== undefined ? publish
+      : document.getElementById('f-published').value === 'true';
+
+    /* Excerpt auto : premier paragraphe texte */
+    const excerptMatch = content.match(/<p[^>]*>(.*?)<\/p>/is);
+    const excerptRaw   = excerptMatch ? excerptMatch[1].replace(/<[^>]+>/g, '') : title;
+    const excerpt      = excerptRaw.slice(0, 180) + (excerptRaw.length > 180 ? '…' : '');
+
+    const updated = {
+      ...current,
+      title,
+      tag:         document.getElementById('f-tag').value,
+      coverImage:  document.getElementById('f-cover').value.trim(),
+      content,
+      excerpt,
+      readtime:    String(rt),
+      date:        current.date || new Date().toISOString().slice(0, 10),
+      dateDisplay: GitHub.formatDate(current.date || new Date().toISOString().slice(0, 10)),
+      published:   isPublished,
+    };
+
+    /* Mettre à jour ou insérer dans le tableau */
+    const idx = posts.findIndex(p => p.id === updated.id);
+    if (idx >= 0) posts[idx] = updated;
+    else posts.unshift(updated);
+
+    /* Écrire sur GitHub */
+    const msg = `📝 ${isPublished ? 'Publie' : 'Brouillon'} : ${title}`;
+    await GitHub.writePosts(posts, sha, msg);
+
+    /* Recharger le sha à jour */
+    const fresh = await GitHub.readPosts();
+    sha   = fresh.sha;
+    posts = fresh.posts;
+
+    current = updated;
+    dirty   = false;
+
+    renderPostList();
+    toast(isPublished ? `✅ "${title}" publié !` : `🟡 Brouillon sauvegardé.`);
+    statusMsg(isPublished ? 'Publié sur GitHub ✓' : 'Brouillon sauvegardé ✓');
+    document.getElementById('f-published').value = String(isPublished);
+
+  } catch(e) {
+    toast('Erreur : ' + e.message, 'error');
+    statusMsg(e.message, true);
+  } finally {
+    pubBtn.disabled = drafBtn.disabled = false;
+    pubBtn.textContent = '💾 Publier';
+  }
+}
+
+/* ══════════════════════════════════════════
+   SUPPRESSION
+══════════════════════════════════════════ */
+let deleteTargetId = null;
+
+function confirmDelete(id) {
+  const post = getPost(id);
+  if (!post) return;
+  deleteTargetId = id;
+  document.getElementById('dialog-del-msg').textContent =
+    `L'article "${post.title}" sera définitivement supprimé de GitHub.`;
+  showDialog('dialog-del');
+}
+
+document.getElementById('dialog-del-confirm').addEventListener('click', async () => {
+  closeDialog('dialog-del');
+  if (!deleteTargetId) return;
+  try {
+    posts = posts.filter(p => p.id !== deleteTargetId);
+    await GitHub.writePosts(posts, sha, `🗑️ Supprime article ${deleteTargetId}`);
+    const fresh = await GitHub.readPosts();
+    sha = fresh.sha; posts = fresh.posts;
+    if (current && current.id === deleteTargetId) {
+      current = null;
+      if (posts.length) editPost(posts[0]);
+      else newPost();
+    }
+    renderPostList();
+    toast('Article supprimé.');
+  } catch(e) {
+    toast('Erreur suppression : ' + e.message, 'error');
+  }
+  deleteTargetId = null;
+});
+
+/* Raccourcis clavier */
+document.addEventListener('keydown', e => {
+  /* Ctrl/Cmd + S → sauvegarder */
+  if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+    e.preventDefault();
+    if (document.getElementById('page-admin').classList.contains('active')) {
+      savePost();
+    }
+  }
+  /* Escape → fermer dialogs */
+  if (e.key === 'Escape') {
+    closeDialog('dialog-del');
+  }
+});
+
+/* ══════════════════════════════════════════
+   INIT
+══════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', () => {
+  checkSession();
+});
+</script>
+</body>
+</html>
