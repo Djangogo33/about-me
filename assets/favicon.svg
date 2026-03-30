@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7c6aff"/>
+      <stop offset="100%" stop-color="#ff6a9e"/>
+    </linearGradient>
+  </defs>
+  <!-- Fond arrondi -->
+  <rect width="32" height="32" rx="8" fill="#07070d"/>
+  <!-- Lettre D stylisée -->
+  <text x="5" y="24" font-family="Arial Black,sans-serif" font-weight="900"
+        font-size="22" fill="url(#g)">D</text>
+  <!-- Point accent teal -->
+  <circle cx="26" cy="8" r="3.5" fill="#6affd4"/>
+</svg>

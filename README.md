@@ -1,55 +1,58 @@
 # 🚀 Portfolio — Djangogo33
+Site : https://djangogo33.github.io/about-me/
+Admin : https://djangogo33.github.io/about-me/admin/
 
-Site portfolio multi-fichiers avec système de blog administrable via GitHub API.
-
-## 📁 Structure
+## 📁 Structure du repo `djangogo33.github.io`
 
 ```
-portfolio/
-├── index.html              ← Site public
-├── data/posts.json         ← Articles du blog
-├── admin/index.html        ← Interface admin
-├── css/                    ← Feuilles de style séparées
-├── js/
-│   ├── main.js             ← Interactions & navigation
-│   ├── blog.js             ← Rendu public du blog
-│   ├── auth.js             ← Auth SHA-256 + session token
-│   └── github.js           ← GitHub API (lecture/écriture)
-└── assets/avatar.png
+djangogo33.github.io/
+└── about-me/                   ← tout le portfolio est ici
+    ├── index.html
+    ├── data/posts.json         ← articles du blog
+    ├── admin/index.html        ← interface admin
+    ├── assets/
+    │   ├── avatar.png
+    │   └── favicon.svg
+    ├── css/
+    └── js/
+        ├── main.js
+        ├── blog.js
+        ├── auth.js             ← hash SHA-256 du mdp
+        └── github.js           ← config REPO_NAME + BASE_PATH
 ```
 
-## 🔐 Admin
+## ⚠️ Sécurité — À FAIRE AVANT DE DÉPLOYER
 
-URL : `https://djangogo33.github.io/admin/`
+### 1. Révoquer l'ancien token (URGENT si déjà poussé sur GitHub)
+→ https://github.com/settings/tokens → supprimer le token exposé
 
-Identifiants par défaut :
-- Identifiant : `djangogo33`
-- Mot de passe : `Djangogo33!Admin2026`
-
-> ⚠️ CHANGE LE MOT DE PASSE avant de déployer ! (voir ci-dessous)
-
-## 🔑 GitHub Token (requis pour sauvegarder)
-
+### 2. Créer un nouveau token
 1. https://github.com/settings/tokens/new
-2. Note : `Blog Admin` — Scope : **repo** — Durée : 1 an
-3. Saisis le token à chaque connexion admin (stocké en sessionStorage uniquement)
+2. Note : `Blog Admin Portfolio`
+3. Expiration : 1 an
+4. Scope : cocher **repo** uniquement
+5. Copier le token (affiché une seule fois)
 
-## ✏️ Changer le mot de passe
-
-1. https://emn178.github.io/online-tools/sha256.html
-2. Tape ton nouveau mot de passe → copie le hash SHA-256
-3. Dans `js/auth.js` remplace `ADMIN_PASS_HASH` et `TOKEN_SECRET`
+### 3. Changer le mot de passe admin dans `js/auth.js`
+1. Aller sur https://emn178.github.io/online-tools/sha256.html
+2. Taper ton nouveau mot de passe → copier le hash
+3. Remplacer `ADMIN_PASS_HASH` dans `js/auth.js`
+4. Remplacer `TOKEN_SECRET` par une chaîne aléatoire perso
+   (ex: `mon-site-dj33-secret-2026-xYz789`)
+   **Ne jamais mettre un token GitHub comme TOKEN_SECRET !**
 
 ## 🔧 Config GitHub (js/github.js)
-
 ```js
 const REPO_OWNER = 'Djangogo33';
-const REPO_NAME  = 'djangogo33.github.io';
-const FILE_PATH  = 'data/posts.json';
+const REPO_NAME  = 'djangogo33.github.io'; // Nom du repo (pas le chemin !)
+const BASE_PATH  = 'about-me';             // Sous-dossier dans le repo
 ```
 
-## 🚀 Déploiement GitHub Pages
+## 🔐 Identifiants par défaut
+- Utilisateur : `djangogo33`
+- Mot de passe : `Djangogo33!Admin2026`
+  → À changer immédiatement via le hash SHA-256 !
 
-1. Repo nommé `djangogo33.github.io`
-2. Upload tous les fichiers
-3. Settings → Pages → Source : main branch / root
+## 🚀 Déploiement
+Le fichier `.github/workflows/static.yml` est déjà configuré.
+Push sur `main` → GitHub Pages se met à jour automatiquement.

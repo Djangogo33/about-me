@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin — Djangogo33</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
   <style>
@@ -854,11 +855,16 @@ async function doLogin() {
     if (!token) throw new Error('Le GitHub Token est requis.');
     GitHub.setToken(token);
     const ghUser = await GitHub.validateToken();
-    if (!ghUser) throw new Error('GitHub Token invalide ou expiré.');
+    if (!ghUser) throw new Error(
+      'GitHub Token invalide ou expiré. Vérifie : ' +
+      '1) le token commence par ghp_ ' +
+      '2) il a le scope "repo" ' +
+      '3) il n\'est pas révoqué sur github.com/settings/tokens'
+    );
 
     /* 3. Accès accordé */
     document.getElementById('topbar-repo').textContent =
-      `${ghUser} → ${GitHub.REPO_OWNER}/${GitHub.REPO_NAME}`;
+      `${ghUser} → ${GitHub.REPO_OWNER}/${GitHub.REPO_NAME}${GitHub.BASE_PATH ? '/'+GitHub.BASE_PATH : ''}`;
     showPage('admin');
     await loadPosts();
 

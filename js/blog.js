@@ -3,7 +3,7 @@
    et rendu du blog sur le site public
    ============================================ */
 
-const POSTS_URL = 'data/posts.json';
+const POSTS_URL = 'data/posts.json'; /* Chemin relatif — fonctionne depuis /about-me/ */
 
 /* ── Charger les articles depuis le JSON local (ou GitHub Pages) ── */
 async function fetchPosts() {

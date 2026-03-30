@@ -1,121 +1,91 @@
 /* ============================================
    github.js — Lecture/écriture posts via GitHub API
-   Les articles sont stockés dans data/posts.json
    ============================================ */
 
 const GitHub = (() => {
 
-  /* ── Config ─────────────────────────────────
-     À remplir dans l'interface admin (stocké
-     dans sessionStorage, jamais en dur ici).
-  ─────────────────────────────────────────── */
-  const REPO_OWNER  = 'Djangogo33';
-  const REPO_NAME   = 'djangogo33.github.io/about-me/'; /* Ton repo GitHub Pages */
-  const FILE_PATH   = 'data/posts.json';
-  const API_BASE    = 'https://api.github.com';
-  const TOKEN_KEY   = 'dj33_gh_token'; /* Clé sessionStorage */
+  /* ── Config ──────────────────────────────────
+     REPO_OWNER : ton pseudo GitHub
+     REPO_NAME  : le NOM du repo seulement
+                  (pas le chemin du site !)
+     BASE_PATH  : sous-dossier dans le repo
+                  (vide '' si à la racine)
+  ────────────────────────────────────────── */
+  const REPO_OWNER = 'Djangogo33';
+  const REPO_NAME  = 'djangogo33.github.io';   /* NOM du repo, sans slash */
+  const BASE_PATH  = 'about-me';               /* Sous-dossier dans le repo */
+  const FILE_PATH  = BASE_PATH ? `${BASE_PATH}/data/posts.json` : 'data/posts.json';
+  const API_BASE   = 'https://api.github.com';
+  const TOKEN_KEY  = 'dj33_gh_token';
 
-  /* ── Stocker / récupérer le token GitHub PAT ── */
-  function setToken(token) {
-    sessionStorage.setItem(TOKEN_KEY, token.trim());
-  }
-  function getToken() {
-    return sessionStorage.getItem(TOKEN_KEY) || '';
-  }
-  function clearToken() {
-    sessionStorage.removeItem(TOKEN_KEY);
-  }
-  function hasToken() {
-    return !!getToken();
-  }
+  const setToken   = t  => sessionStorage.setItem(TOKEN_KEY, t.trim());
+  const getToken   = () => sessionStorage.getItem(TOKEN_KEY) || '';
+  const clearToken = () => sessionStorage.removeItem(TOKEN_KEY);
+  const hasToken   = () => !!getToken();
 
-  /* ── Headers authentifiés ── */
   function headers() {
     return {
-      'Authorization': `Bearer ${getToken()}`,
-      'Accept': 'application/vnd.github+json',
-      'Content-Type': 'application/json',
+      'Authorization'       : `Bearer ${getToken()}`,
+      'Accept'              : 'application/vnd.github+json',
+      'Content-Type'        : 'application/json',
       'X-GitHub-Api-Version': '2022-11-28',
     };
   }
 
-  /* ── Lire le fichier posts.json depuis GitHub ── */
   async function readPosts() {
     const url = `${API_BASE}/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`;
     const res = await fetch(url, { headers: headers() });
-
-    if (res.status === 404) {
-      /* Fichier inexistant → retourner tableau vide + sha null */
-      return { posts: [], sha: null };
-    }
+    if (res.status === 404) return { posts: [], sha: null };
     if (!res.ok) {
       const err = await res.json().catch(() => ({}));
-      throw new Error(err.message || `GitHub API error ${res.status}`);
+      throw new Error(err.message || `GitHub API ${res.status}`);
     }
-
-    const data = await res.json();
+    const data    = await res.json();
     const content = JSON.parse(atob(data.content.replace(/\n/g, '')));
     return { posts: content, sha: data.sha };
   }
 
-  /* ── Écrire posts.json sur GitHub (crée ou met à jour) ── */
-  async function writePosts(posts, sha, commitMessage) {
-    const url = `${API_BASE}/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`;
+  async function writePosts(posts, sha, message) {
+    const url     = `${API_BASE}/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`;
     const content = btoa(unescape(encodeURIComponent(JSON.stringify(posts, null, 2))));
-
-    const body = {
-      message: commitMessage || `📝 Blog: mise à jour des articles`,
-      content,
-      ...(sha ? { sha } : {}), /* sha requis pour update, absent pour create */
-    };
-
     const res = await fetch(url, {
-      method: 'PUT',
+      method : 'PUT',
       headers: headers(),
-      body: JSON.stringify(body),
+      body   : JSON.stringify({ message: message || '📝 Blog update', content, ...(sha ? { sha } : {}) }),
     });
-
     if (!res.ok) {
       const err = await res.json().catch(() => ({}));
-      throw new Error(err.message || `GitHub write error ${res.status}`);
+      throw new Error(err.message || `GitHub write ${res.status}`);
     }
     return res.json();
   }
 
-  /* ── Vérifier que le token est valide ── */
   async function validateToken() {
     const res = await fetch(`${API_BASE}/user`, { headers: headers() });
     if (!res.ok) return null;
-    const user = await res.json();
-    return user.login; /* Retourne le username GitHub si ok */
+    const u = await res.json();
+    return u.login;
   }
 
-  /* ── Calculer le temps de lecture ── */
-  function calcReadtime(htmlContent) {
-    const text = htmlContent.replace(/<[^>]+>/g, ' ');
-    const words = text.trim().split(/\s+/).length;
-    return Math.max(1, Math.round(words / 200)); /* 200 mots/min */
+  function calcReadtime(html) {
+    const words = html.replace(/<[^>]+>/g, ' ').trim().split(/\s+/).length;
+    return Math.max(1, Math.round(words / 200));
   }
 
-  /* ── Formater la date ── */
   function formatDate(dateStr) {
-    const d = new Date(dateStr);
-    return d.toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
+    return new Date(dateStr).toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
   }
 
-  /* ── Générer un ID unique ── */
   function genId() {
     return Date.now().toString() + Math.random().toString(36).slice(2, 6);
   }
 
-  /* ── API publique ── */
   return {
     setToken, getToken, clearToken, hasToken,
     readPosts, writePosts, validateToken,
     calcReadtime, formatDate, genId,
-    REPO_OWNER, REPO_NAME,
+    REPO_OWNER, REPO_NAME, BASE_PATH,
   };
-
 })();
 
 window.GitHub = GitHub;
