@@ -856,15 +856,15 @@ async function doLogin() {
     GitHub.setToken(token);
     const ghUser = await GitHub.validateToken();
     if (!ghUser) throw new Error(
-      'GitHub Token invalide ou expiré. Vérifie : ' +
-      '1) le token commence par ghp_ ' +
-      '2) il a le scope "repo" ' +
-      '3) il n\'est pas révoqué sur github.com/settings/tokens'
+      'GitHub Token invalide ou expiré.\n' +
+      '→ Crée un nouveau token sur github.com/settings/tokens\n' +
+      '→ Scope requis : repo\n' +
+      '→ Le token commence toujours par ghp_'
     );
 
     /* 3. Accès accordé */
     document.getElementById('topbar-repo').textContent =
-      `${ghUser} → ${GitHub.REPO_OWNER}/${GitHub.REPO_NAME}${GitHub.BASE_PATH ? '/'+GitHub.BASE_PATH : ''}`;
+      `${ghUser} → ${GitHub.REPO_OWNER}/${GitHub.REPO_NAME}`;
     showPage('admin');
     await loadPosts();
 

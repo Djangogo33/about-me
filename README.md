@@ -1,58 +1,99 @@
-# 🚀 Portfolio — Djangogo33
-Site : https://djangogo33.github.io/about-me/
-Admin : https://djangogo33.github.io/about-me/admin/
+# Portfolio — Djangogo33
 
-## 📁 Structure du repo `djangogo33.github.io`
+**Site :** https://djangogo33.github.io/about-me  
+**Admin :** https://djangogo33.github.io/about-me/admin/  
+**Repo :** https://github.com/Djangogo33/about-me
+
+---
+
+## Structure des fichiers dans le repo
 
 ```
-djangogo33.github.io/
-└── about-me/                   ← tout le portfolio est ici
-    ├── index.html
-    ├── data/posts.json         ← articles du blog
-    ├── admin/index.html        ← interface admin
-    ├── assets/
-    │   ├── avatar.png
-    │   └── favicon.svg
-    ├── css/
-    └── js/
-        ├── main.js
-        ├── blog.js
-        ├── auth.js             ← hash SHA-256 du mdp
-        └── github.js           ← config REPO_NAME + BASE_PATH
+about-me/                   ← racine du repo
+├── index.html              ← page principale du site
+├── data/
+│   └── posts.json          ← articles du blog (lu par le site)
+├── admin/
+│   └── index.html          ← interface admin du blog
+├── assets/
+│   ├── avatar.png          ← photo de profil (renard Minecraft)
+│   └── favicon.svg         ← icône dans l'onglet
+├── css/
+│   ├── variables.css
+│   ├── base.css
+│   ├── nav.css
+│   ├── sections.css
+│   └── animations.css
+└── js/
+    ├── main.js             ← navigation, animations, terminal
+    ├── blog.js             ← affichage des articles sur le site
+    ├── auth.js             ← vérification du mot de passe admin
+    └── github.js           ← lecture/écriture GitHub API
 ```
 
-## ⚠️ Sécurité — À FAIRE AVANT DE DÉPLOYER
+---
 
-### 1. Révoquer l'ancien token (URGENT si déjà poussé sur GitHub)
-→ https://github.com/settings/tokens → supprimer le token exposé
+## 🔐 Sécurité — Ce que tu dois comprendre
 
-### 2. Créer un nouveau token
-1. https://github.com/settings/tokens/new
+### Il y a DEUX types de secrets très différents :
+
+**1. Le TOKEN_SECRET dans `js/auth.js`**
+→ C'est une phrase secrète que TU INVENTES
+→ Elle sert à signer les sessions de connexion admin
+→ Exemple : `"monblog-abc123-perso"`
+→ **⚠️ PAS un token GitHub ! Jamais un ghp_...**
+
+**2. Le GitHub PAT (ghp_...)**
+→ C'est le vrai token GitHub pour écrire dans le repo
+→ Tu le saisis dans le formulaire de login admin
+→ Il est stocké en `sessionStorage` (disparaît à la fermeture du navigateur)
+→ **Il ne doit JAMAIS être dans le code source**
+
+---
+
+## 🔑 Créer un nouveau GitHub PAT
+
+1. Va sur https://github.com/settings/tokens/new
 2. Note : `Blog Admin Portfolio`
 3. Expiration : 1 an
-4. Scope : cocher **repo** uniquement
-5. Copier le token (affiché une seule fois)
+4. Scope : coche uniquement **`repo`**
+5. Clique `Generate token`
+6. **Copie le token** — il s'affiche une seule fois !
+7. Stocke-le dans un endroit sûr (ex: notes chiffrées, gestionnaire de mdp)
 
-### 3. Changer le mot de passe admin dans `js/auth.js`
-1. Aller sur https://emn178.github.io/online-tools/sha256.html
-2. Taper ton nouveau mot de passe → copier le hash
-3. Remplacer `ADMIN_PASS_HASH` dans `js/auth.js`
-4. Remplacer `TOKEN_SECRET` par une chaîne aléatoire perso
-   (ex: `mon-site-dj33-secret-2026-xYz789`)
-   **Ne jamais mettre un token GitHub comme TOKEN_SECRET !**
+Ce token tu le saisis dans le formulaire de login admin. Voilà.
 
-## 🔧 Config GitHub (js/github.js)
+---
+
+## ✏️ Changer le mot de passe admin
+
+Le mot de passe par défaut est `Djangogo33!Admin2026`.
+
+Pour le changer :
+1. Va sur https://emn178.github.io/online-tools/sha256.html
+2. Tape ton nouveau mot de passe dans le champ Input
+3. Copie le hash (64 caractères héxadécimaux)
+4. Ouvre `js/auth.js`
+5. Remplace la valeur de `ADMIN_PASS_HASH` par le hash copié
+
+---
+
+## 🚀 Utiliser l'admin du blog
+
+1. Va sur https://djangogo33.github.io/about-me/admin/
+2. Identifiant : `djangogo33`
+3. Mot de passe : ton mot de passe
+4. GitHub Token : le ghp_ que tu as créé
+5. → Tu peux créer, modifier, supprimer des articles
+6. → Ctrl+S pour sauvegarder rapidement
+7. → "Publier" = visible sur le site, "Brouillon" = caché
+
+---
+
+## ⚙️ Config dans `js/github.js`
+
 ```js
-const REPO_OWNER = 'Djangogo33';
-const REPO_NAME  = 'djangogo33.github.io'; // Nom du repo (pas le chemin !)
-const BASE_PATH  = 'about-me';             // Sous-dossier dans le repo
+const REPO_OWNER = 'Djangogo33';   // Ton pseudo GitHub
+const REPO_NAME  = 'about-me';     // Nom exact du repo
+const FILE_PATH  = 'data/posts.json'; // Ne pas changer
 ```
-
-## 🔐 Identifiants par défaut
-- Utilisateur : `djangogo33`
-- Mot de passe : `Djangogo33!Admin2026`
-  → À changer immédiatement via le hash SHA-256 !
-
-## 🚀 Déploiement
-Le fichier `.github/workflows/static.yml` est déjà configuré.
-Push sur `main` → GitHub Pages se met à jour automatiquement.
