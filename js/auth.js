@@ -18,9 +18,9 @@ const Auth = (() => {
 
   const ADMIN_USER      = 'djangogo33';
   /* Hash SHA-256 du mot de passe "Djangogo33!Admin2026" */
-  const ADMIN_PASS_HASH = '692ada71d366a84b6a441708411824b66edc1ca0f8bf857a56cda1777af1f04d';
+  const ADMIN_PASS_HASH = '3317aa538c37cc0d073839ea8d98438e78c5eb32e1119b5e4e22ff0992bc91af';
   /* Phrase inventée pour signer les sessions — PAS un token GitHub ! */
-  const TOKEN_SECRET    = 'about-me-blog-sel-2026-perso';
+  const TOKEN_SECRET    = 'vive_les_vacances';
 
   const SESSION_DURATION = 24 * 60 * 60 * 1000;
   const SESSION_KEY      = 'dj33_admin_session';
