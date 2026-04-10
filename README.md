@@ -24,7 +24,7 @@ A web application showcasing responsive design and interactive features.
 - **Languages**: HTML (66.8%), CSS (19.3%), JavaScript (13.9%)
 
 ### [About Me](https://github.com/Djangogo33/about-me)
-A personal portfolio website highlighting my work and interests. Visit my live site: **[djangogo33.github.io/about-me](https://djangogo33.github.io/about-me)**
+A personal portfolio website highlighting my work and interests. Visit my live site: **[djangogo33.netlify.app](https://djangogo33.netlify.app)**
 - **Languages**: HTML (52.6%), JavaScript (25.3%), CSS (22.1%)
 
 ### Other Projects
@@ -51,7 +51,7 @@ A personal portfolio website highlighting my work and interests. Visit my live s
 ## 🔗 Let's Connect
 
 Find more about me and additional links on my portfolio:
-- 🌐 **[My Portfolio](https://djangogo33.github.io/about-me)** - All my social links and contact information
+- 🌐 **[My Portfolio](https://djangogo33.netlify.app)** - All my social links and contact information
 
 Feel free to explore my repositories, open issues, or reach out through my portfolio!
 
@@ -80,7 +80,7 @@ Pour le changer :
 
 ## 🚀 Utiliser l'admin du blog
 
-1. Va sur https://djangogo33.github.io/about-me/admin/
+1. Va sur https://djangogo33.netlify.app/admin/
 2. Identifiant : `djangogo33`
 3. Mot de passe : ton mot de passe
 4. GitHub Token : le ghp_ que tu as créé
