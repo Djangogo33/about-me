@@ -1,99 +1,210 @@
-# 👋 Welcome to my GitHub Profile
+# 👋 Bienvenue! Je suis **Djangogo33**
 
-Hi! I'm **Djangogo33**, a passionate **Developer** crafting creative web solutions and browser extensions. I love building tools that enhance user experiences and solve real-world problems.
-
-## 🚀 About Me
-
-I'm a full-stack web developer with expertise in **frontend technologies** and **browser extension development**. My passion lies in creating intuitive, functional applications that make a difference in how people interact with the web.
-
-- 🔧 Building innovative browser extensions and web applications
-- 💻 Specialized in JavaScript, Java, HTML, and CSS
-- 🎯 Committed to clean code and user-centered design
-- 🌱 Continuously learning and exploring new technologies
-
-## 🎯 Currently Working On
-
-### [AITools](https://github.com/Djangogo33/AITools) ⭐
-A Chrome extension designed to improve your Google navigation experience with AI-powered features. This is my primary focus right now!
-- **Languages**: JavaScript (75.9%), HTML (13.7%), CSS (10.4%)
-
-## 💡 Featured Projects
-
-### [Optitools](https://github.com/Djangogo33/optitools)
-A web application showcasing responsive design and interactive features.
-- **Languages**: HTML (66.8%), CSS (19.3%), JavaScript (13.9%)
-
-### [About Me](https://github.com/Djangogo33/about-me)
-A personal portfolio website highlighting my work and interests. Visit my live site: **[djangogo33.github.io/about-me](https://djangogo33.github.io/about-me)**
-- **Languages**: HTML (52.6%), JavaScript (25.3%), CSS (22.1%)
-
-### Other Projects
-- **[Calc Study](https://github.com/Djangogo33/calc-study)** - An educational tool for learning calculation concepts
-- **[Cuisine](https://github.com/Djangogo33/cuisine)** - A culinary-focused web project
-- **[Happy Birthday](https://github.com/Djangogo33/happy-birthday)** - A celebratory interactive experience
-- **[NewTab](https://github.com/Djangogo33/newtab)** - A custom new tab page extension
-
-## 🛠️ Tech Stack
-
-| Category | Technologies |
-|----------|---------------|
-| **Languages** | JavaScript, Java, HTML, CSS |
-| **Frontend** | HTML5, CSS3, Vanilla JavaScript |
-| **Extensions** | Chrome Extension API |
-| **Tools** | Git, GitHub |
-
-## 📊 GitHub Highlights
-
-- 🎯 Multiple projects across web development and browser extensions
-- 📚 Focus on practical, user-friendly applications
-- ✨ Emphasis on responsive design and clean code
-
-## 🔗 Let's Connect
-
-Find more about me and additional links on my portfolio:
-- 🌐 **[My Portfolio](https://djangogo33.github.io/about-me)** - All my social links and contact information
-
-Feel free to explore my repositories, open issues, or reach out through my portfolio!
+Développeur web **full-stack** passionné par la création d'**outils innovants**, **extensions de navigateur** et **applications productives**. Je combine creativity et pragmatisme pour résoudre les vrais problèmes des utilisateurs.
 
 ---
 
-**"Code is poetry written for both computers and humans."with5. Clique `Generate token`
-6. **Copie le token** — il s'affiche une seule fois !
-7. Stocke-le dans un endroit sûr (ex: notes chiffrées, gestionnaire de mdp)
+## 🚀 À Propos de Moi
 
-Ce token tu le saisis dans le formulaire de login admin. Voilà.
+Je suis un développeur autodidacte avec une approche **user-centric** et une spécialisation en :
+- 🌐 **Développement Web** : frontend/backend moderne et performant
+- 🔌 **Extensions de Navigateur** : Chrome/Firefox avec APIs natives
+- 🎮 **Web Interactif** : UI/UX innovantes et responsives
+- 🤖 **IA & Automation** : Intégration d'APIs intelligentes dans les applications
 
----
-
-## ✏️ Changer le mot de passe admin
-
-Le mot de passe par défaut est `Djangogo33!Admin2026`.
-
-Pour le changer :
-1. Va sur https://emn178.github.io/online-tools/sha256.html
-2. Tape ton nouveau mot de passe dans le champ Input
-3. Copie le hash (64 caractères héxadécimaux)
-4. Ouvre `js/auth.js`
-5. Remplace la valeur de `ADMIN_PASS_HASH` par le hash copié
+**Philosophie :** Clean code, zéro dépendances inutiles (Vanilla JS), 100% accessibilité et performance. *"Code is poetry written for both computers and humans."*
 
 ---
 
-## 🚀 Utiliser l'admin du blog
+## 💼 Expertise Technique
 
-1. Va sur https://djangogo33.github.io/about-me/admin/
-2. Identifiant : `djangogo33`
-3. Mot de passe : ton mot de passe
-4. GitHub Token : le ghp_ que tu as créé
-5. → Tu peux créer, modifier, supprimer des articles
-6. → Ctrl+S pour sauvegarder rapidement
-7. → "Publier" = visible sur le site, "Brouillon" = caché
+| Catégorie | Stack |
+|-----------|-------|
+| **Langages** | JavaScript, TypeScript, HTML5, CSS3, C# |
+| **Frontend** | Vanilla JS, React, CSS3 + Grid/Flexbox |
+| **Backend** | Lovable Cloud, Supabase, Node.js |
+| **Extensions** | Chrome Extension API, MV3, Service Workers |
+| **Outils** | Git, GitHub Actions, GitHub Pages, Vercel |
+| **Concepts** | PWA, SPA, Vanilla architecture, localStorage, Realtime |
 
 ---
 
-## ⚙️ Config dans `js/github.js`
+## ⭐ Projets Phares
 
-```js
-const REPO_OWNER = 'Djangogo33';   // Ton pseudo GitHub
-const REPO_NAME  = 'about-me';     // Nom exact du repo
-const FILE_PATH  = 'data/posts.json'; // Ne pas changer
+### 🔥 **AITools Pro v4.0** — Suite d'Outils Intelligents pour Chrome
+*Extension Chrome tout-en-un • JavaScript • 1★ | Discussions, Wiki actifs*
+
+Une extension Chrome révolutionnaire avec **20+ outils puissants** :
+- 🔍 **Google Boost** : 20+ opérateurs avancés, catégories (Wiki, Tendances, Images, Vidéos)
+- 🛠️ **Suite Outils** : Pomodoro, Notes intelligentes, Résumeur de pages, Traducteur (8 langues)
+- 🔒 **Anonymiseur** : Remplace noms, emails, téléphones, IPs, IBANs automatiquement
+- 🧠 **Détecteur IA** : Identifie le contenu généré par IA en temps réel
+- 🍪 **Anti-cookies** : Suppression intelligente des bandeaux de consentement
+- 🎨 **Interface redessinée** : Onglets visuels, switches CSS, toaster feedback
+
+**Statut** : ✅ Production (v4.0) | [Repository](https://github.com/Djangogo33/AITools) | [Discord Support](https://discord.gg/J2ssa2Wkjr)
+
+---
+
+### 📊 **Ambiance — Dashboard Personnel Interactif**
+*Application Web • JavaScript • Déploiement GitHub Pages*
+
+Un tableau de bord apaisant et productif pour centraliser votre journée :
+- 🎯 **Ambiance** : Thèmes personnalisés (Concentration, Sérénité, Créativité, Énergie, Rêverie)
+- 🌙 **Fonds Dynamiques** : Générateur de particules en temps réel
+- 🎵 **Musique Générative** : Accompagnement sonore intégré
+- ⏱️ **Minuteur Pomodoro** : Sessions 25/45/60 min + citations motivantes
+- 🗂️ **Gestionnaire de Tâches** : To-Do list + suivi d'habitudes
+- 🍽️ **Générateur IA** : Suggestions de repas anti-gaspillage basées sur vos ingrédients
+
+🌐 **[Voir la démo en direct](https://djangogo33.github.io/ambiance/)** | [Repository](https://github.com/Djangogo33/ambiance)
+
+---
+
+### 🧩 **ReviewDrop — Plateforme de Feedback Visuel**
+*SaaS MVP • TypeScript • Lovable Cloud • Supabase • Stripe*
+
+App SaaS pour freelances web : recueillez des feedbacks visuels sur sites/maquettes **en 30 secondes** sans friction email.
+
+**Architecture** :
+- 📱 **Widget JS** : Snippet injectable (sites statiques, WordPress, React/Vue)
+- 🎯 **Commentaires Ancrés** : Position (x%, y%), contexte (URL, sélecteur DOM, screenshot)
+- 🎨 **Mode Maquette** : Upload PNG/JPG, clients commentent directement dessus
+- ⚡ **Realtime** : Dashboard live + notifications email (Resend)
+- 💳 **Stripe** : Free (3 projets) / Pro 9€/mois (illimité)
+
+**Statut** : 🚀 MVP en développement | [Site](https://reviewdrop.lovable.app/) | [Repository](https://github.com/Djangogo33/ReviewDrop)
+
+---
+
+### 🎓 **TutoFacile (OptiTools) — Plateforme Gratuite de Tutoriels**
+*Application Web • HTML/CSS/JavaScript • Dashboard Admin*
+
+Un écosystème complet de tutoriels gratuits avec :
+- 📚 **20+ Tutoriels Enrichis** : Étapes détaillées, tips, listes de matériel
+- 👤 **Auth SHA-256** : Connexion sécurisée utilisateurs + admin
+- 🌙 **Dark Mode** : Sans flash, switcher de langue
+- 📝 **Dashboard Utilisateur** : Créer/modifier/supprimer tutoriels (visibilité privé/public)
+- 🏷️ **Catégories** : Navigation intuitive par domaines
+- 🔒 **Panel Admin** : Modération et gestion complète
+
+🌐 **[Accès Site](https://djangogo33.github.io/optitools)** | [Admin Panel](https://djangogo33.github.io/optitools/admin.html) | [Repository](https://github.com/Djangogo33/optitools)
+
+---
+
+### 🚀 **NewTab — Extension Chrome Légère**
+*Extension Chrome • JavaScript • Redirection Personnalisée*
+
+Extension ultralige qui prend le contrôle de votre nouvel onglet :
+- ⚡ **Redirection Instantanée** : Ouvrir Google, un dashboard perso, ou n'importe quel site
+- 🛠️ **Configuration Simple** : URL de destination en options
+- 🎈 **Poids Plume** : Zéro impact sur les performances
+- 🔒 **Respect Vie Privée** : Aucune donnée collectée
+
+[Repository](https://github.com/Djangogo33/newtab)
+
+---
+
+### 📱 **À Propos de Moi — Portfolio Personnel**
+*Site Web • HTML/CSS/JavaScript • Admin de Blog*
+
+Portfolio interactif showcasing tous mes travaux :
+- 👤 **Profil Complet** : Bio, projets, liens sociaux
+- 📝 **Blog Admin** : Créer/modifier/supprimer articles via CMS
+- 🔐 **Auth Sécurisée** : GitHub Token + SHA-256
+- 🎨 **Design Responsive** : HTML (52.6%), JavaScript (25.3%), CSS (22.1%)
+
+🌐 **[Voir mon portfolio](https://djangogo33.github.io/about-me/)** | [Repository](https://github.com/Djangogo33/about-me)
+
+---
+
+### 🧮 **CalcStudy — Calculatrice Éducative**
+*Application Web • JavaScript • Historique + Ressources*
+
+Calculatrice intelligente avec :
+- 📝 **Historique Persistant** : 20 entrées sauvegardées localement
+- 📋 **Copie du Résultat** : Partage facile
+- 📚 **Hub Ressources** : Favoris, récents, filtres
+- 📱 **Mobile-First** : Ergonomie optimisée
+- 🔐 **Code Discret** : Easter egg (saisir `00000`) 😉
+
+🌐 **[Accès ici](https://djangogo33.github.io/calc-study/)** | [Repository](https://github.com/Djangogo33/calc-study)
+
+---
+
+### 🎂 **Happy Birthday — Expérience Interactive Festive**
+*Web Interactif • HTML/CSS/JavaScript • Animation Personnalisée*
+
+Page anniversaire générative et amusante pour célébrer en style ! 🎉
+
+[Repository](https://github.com/Djangogo33/happy-birthday)
+
+---
+
+## 🌐 Mon Écosystème
+
+| Plateforme | Lien |
+|-----------|------|
+| 💬 **Discord** | [Rejoins la communauté](https://discord.gg/J2ssa2Wkjr) |
+| 📱 **WhatsApp Channel** | [Notifications](https://whatsapp.com/channel/0029VbCJCg06GcG7aLZPGu1f) |
+| 👤 **Portfolio** | [djangogo33.github.io/about-me](https://djangogo33.github.io/about-me) |
+| 💻 **GitHub** | [@Djangogo33](https://github.com/Djangogo33) |
+
+---
+
+## 📊 Stats GitHub
+
+![GitHub Stats](https://github-readme-stats.vercel.app/api?username=Djangogo33&show_icons=true&theme=tokyonight&hide=contribs&count_private=true)
+
+![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=Djangogo33&layout=compact&theme=tokyonight)
+
+---
+
+## 🎯 Ce Qui Me Motive
+
+✨ Créer des **produits qui résolvent de vrais problèmes**  
+🚀 Explorer les frontières de **ce qu'on peut faire sans frameworks**  
+👥 Construire une **communauté** autour de mes outils  
+📚 Partager des **connaissances** via tutoriels et documentation  
+🎨 Combiner **beauté et fonctionnalité** dans chaque projet  
+
+---
+
+## 🤝 Collaborons!
+
+Je suis toujours ouvert à :
+- 🤝 Collaborations sur des projets innovants
+- 💬 Discussions techniques & feedback
+- 🌟 Contributions à mes projets open-source
+- 📧 Opportunités intéressantes
+
+**Contacte-moi** via [mon portfolio](https://djangogo33.github.io/about-me/) ou rejoins mon [Discord](https://discord.gg/J2ssa2Wkjr) !
+
+---
+
+## 🏆 Highlights
+
+- 🔥 **13+ projets** actifs et déployés
+- 📱 **3 extensions navigateur** en production
+- 🚀 **1 SaaS MVP** (ReviewDrop) en développement
+- 💡 **Spécialiste** : Vanilla JS, Chrome APIs, GitHub Pages, Real-time apps
+- 🎓 **Créateur de contenu** : Tutoriels, documentation, blog
+
+---
+
+```javascript
+// Mon approche du dev :
+const myPhilosophy = {
+  code_quality: "5/5",
+  performance_first: true,
+  frameworks_used: "only when necessary",
+  documentation: "always",
+  user_experience: "paramount"
+};
 ```
+
+---
+
+**"Le meilleur code n'est pas celui qui en fait le plus — c'est celui qui en fait juste assez, proprement, et pour l'utilisateur."**
+
+*Last updated: May 2026 | Active developer | Always learning* 🚀
