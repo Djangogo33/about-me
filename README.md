@@ -137,7 +137,7 @@ Calculatrice intelligente avec :
 
 Page anniversaire générative et amusante pour célébrer en style ! 🎉
 
-[Repository](https://github.com/Djangogo33/happy-birthday)
+**🌐[Site](https://djangogo33.github.io/happy-birthday/)** [Repository](https://github.com/Djangogo33/happy-birthday)
 
 ---
 
